@@ -1,1 +1,15 @@
 // app global css in SCSS form
+:root {
+  --bg-main: #f6f7f9;
+  --card-bg: #ffffff;
+  --primary: #2f80ed;
+  --text-main: #2e2e2e;
+  --text-muted: #8a8a8a;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+}
+
+body {
+  background: var(--bg-main);
+  font-family: 'Inter', 'Roboto', sans-serif;
+}
