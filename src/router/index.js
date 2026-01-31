@@ -10,7 +10,7 @@ export default route(function () {
   })
 
   Router.beforeEach((to, from, next) => {
-    const auth = useAuthStore() // ✅ AQUÍ SÍ
+    const auth = useAuthStore()
 
     if (to.meta.requiresAuth && !auth.user) {
       next('/login')
