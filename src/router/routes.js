@@ -30,6 +30,10 @@ export default [
       {
         path: 'profile',
         component: () => import('pages/ProfilePage.vue')
+      },
+      {
+        path: '/practice',
+        component: () => import('pages/PracticePage.vue')
       }
     ]
   }
