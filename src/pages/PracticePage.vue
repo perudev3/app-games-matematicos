@@ -66,7 +66,7 @@ const generateExercise = async (retries = 3) => {
 
   for (let i = 0; i < retries; i++) {
     try {
-      const res = await fetch('http://localhost:3333/generate-exercise', {
+      const res = await fetch('https://games-matem-ticas-ia-chat.vercel.app/api/generate-exercise', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -2,52 +2,107 @@
   <q-page class="login-page flex flex-center">
     <div class="login-card">
 
-      <!-- ROBOT -->
+      <!-- LOGOS -->
       <div class="robot-wrapper">
-        <img src="logo-sin-fondo.png" class="robot-img" />
+        <img src="logo-facultad.jpeg" class="robot-img" />
       </div>
 
-      <h1 class="title">Juegos Matemáticos</h1>
-      <p class="subtitle">Bienvenido de vuelta</p>
+      <div class="robot-wrapper">
+        <img src="logo-mathplay.png" class="robot-img" />
+      </div>
 
-      <q-input
-        v-model="email"
-        outlined
-        placeholder="Correo Electrónico"
-        class="input"
-        type="email"
-      />
+      <h1 class="title">MathPlay</h1>
 
-      <q-input
-        v-model="password"
-        outlined
-        placeholder="Contraseña"
-        class="input"
-        type="password"
-      />
+      <!-- 🔹 FORMULARIO DE LOGIN -->
+      <div v-if="!showRegister">
+        <q-input
+          v-model="email"
+          outlined
+          placeholder="Correo Electrónico"
+          class="input"
+          type="email"
+        />
 
-      <q-btn
-        label="Iniciar Sesión"
-        class="btn-login full-width"
-        unelevated
-        :loading="loading"
-        @click="login"
-      />
+        <q-input
+          v-model="password"
+          outlined
+          placeholder="Contraseña"
+          class="input"
+          type="password"
+        />
 
-      <p class="forgot">¿Olvidaste tu contraseña?</p>
+        <q-btn
+          label="Iniciar Sesión"
+          class="btn-login full-width"
+          unelevated
+          :loading="loading"
+          @click="login"
+        />
+
+        <p class="register-text">
+          ¿No tienes cuenta?
+          <q-btn flat label="Registrarse" @click="showRegister = true" />
+        </p>
+      </div>
+
+      <!-- 🔹 FORMULARIO DE REGISTRO -->
+      <div v-else>
+        <q-input
+          v-model="registerName"
+          outlined
+          placeholder="Nombre completo"
+          class="input"
+        />
+
+        <q-input
+          v-model="registerEmail"
+          outlined
+          placeholder="Correo Electrónico"
+          class="input"
+          type="email"
+        />
+
+        <q-input
+          v-model="registerPassword"
+          outlined
+          placeholder="Contraseña"
+          class="input"
+          type="password"
+        />
+
+        <q-btn
+          label="Registrarse"
+          class="btn-login full-width"
+          unelevated
+          :loading="loading"
+          @click="register"
+        />
+
+        <p class="register-text">
+          ¿Ya tienes cuenta?
+          <q-btn flat label="Iniciar sesión" @click="showRegister = false" />
+        </p>
+      </div>
 
     </div>
   </q-page>
 </template>
+
 
 <script setup>
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from 'stores/auth'
 
+const showRegister = ref(false)
+
 const email = ref('')
 const password = ref('')
 const loading = ref(false)
+
+const registerName = ref('')
+const registerEmail = ref('')
+const registerPassword = ref('')
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -79,6 +134,26 @@ async function login() {
   }
 }
 
+
+async function register() {
+  try {
+    loading.value = true
+    // 🔹 Aquí llamas a tu API o store para registrar
+    await auth.register({
+      name: registerName.value,
+      email: registerEmail.value,
+      password: registerPassword.value
+    })
+
+    // 🔹 Redirecciona o muestra mensaje
+    router.replace('/app/dashboard')
+  } catch (err) {
+    console.error(err)
+  } finally {
+    loading.value = false
+  }
+}
+
 </script>
 
 <style scoped>
@@ -88,13 +163,8 @@ async function login() {
 
 .login-card {
   width: 100%;
-  max-width: 360px;
   padding: 36px 26px;
   text-align: center;
-
-  background: #ffffff;
-  border-radius: 22px;
-
   box-shadow:
     0 10px 25px rgba(0, 0, 0, 0.08),
     0 30px 60px rgba(0, 0, 0, 0.05);
@@ -151,8 +221,15 @@ async function login() {
 }
 
 .robot-img {
-  width: 72%;
+  width: 30%;
   max-width: 200px;
   height: auto;
 }
+
+.register-text {
+  font-size: 13px;
+  color: #8a8a8a;
+  margin-top: 18px;
+}
+
 </style>

@@ -33,6 +33,21 @@ export const useAuthStore = defineStore('auth', {
     async logout () {
       await supabase.auth.signOut()
       this.user = null
+    },
+
+    async register({ name, email, password }) {
+      const { data, error } = await supabase.auth.signUp({
+        email: email.trim(), // 🔹 quitar espacios
+        password,
+        options: {
+          data: { full_name: name },
+          emailRedirectTo: '',
+        }
+      })
+
+      if (error) throw error
+      this.user = data.user
     }
+
   }
 })

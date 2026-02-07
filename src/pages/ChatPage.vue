@@ -80,7 +80,7 @@ const sendMessage = async () => {
   await saveMessage('user', userText)
 
   try {
-    const res = await fetch('http://localhost:3333/chat', {
+    const res = await fetch('https://games-matem-ticas-ia-chat.vercel.app/api', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: userText })
