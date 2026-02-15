@@ -45,6 +45,46 @@
       </div>
     </div>
 
+    <!-- LIBROS -->
+    <div class="books-section">
+
+      <h3 class="section-title">Practicar por Libro</h3>
+
+      <div class="books-grid">
+        <div
+          v-for="b in books"
+          :key="b.key"
+          class="book-card"
+          :style="{ background: b.color }"
+          @click="openBook(b.key)"
+        >
+          <div class="book-icon">📘</div>
+          <p>{{ b.title }}</p>
+
+          <!-- PROGRESO LIBRO -->
+          <div
+            class="progress-wrapper"
+            v-if="progress[b.key]"
+          >
+            <div class="progress-bar">
+              <div
+                class="progress-fill"
+                :style="{ width: `${progress[b.key].percent}%` }"
+              ></div>
+            </div>
+
+            <p class="progress-text">
+              Nivel {{ progress[b.key].level }}
+              · Ejercicio {{ progress[b.key].exercise }}/5
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
   </q-page>
 </template>
 
@@ -62,6 +102,36 @@ const practices = [
   { key: 'series', label: 'Práctica de Series', icon: 'S', iconClass: 'series' },
   { key: 'mixto', label: 'Práctica Mixta', icon: 'M', iconClass: 'mixto' },
 ]
+
+const books = [
+  {
+    key: 'libro-1',
+    title: 'Libro 1',
+    color: 'linear-gradient(180deg,#ff9a9e,#fad0c4)'
+  },
+  {
+    key: 'libro-2',
+    title: 'Libro 2',
+    color: 'linear-gradient(180deg,#a18cd1,#fbc2eb)'
+  },
+  {
+    key: 'libro-3',
+    title: 'Libro 3',
+    color: 'linear-gradient(180deg,#84fab0,#8fd3f4)'
+  }
+]
+
+const openBook = (bookKey) => {
+  router.push({
+    path: '/practice',
+    query: {
+      book: bookKey,    // 👈 pasa el libro
+      grade: 6
+    }
+  })
+}
+
+
 
 // Progreso por práctica
 const progress = ref({})
@@ -251,4 +321,55 @@ onMounted(() => {
 .chest {
   font-size: 36px;
 }
+
+.books-section {
+  margin-top: 26px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #2e2e2e;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+}
+
+.book-card {
+  border-radius: 18px;
+  padding: 20px 10px;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+  transition: transform .2s;
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+}
+
+.book-icon {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.book-card .progress-bar {
+  background: rgba(255,255,255,.3);
+}
+
+.book-card .progress-fill {
+  background: white;
+}
+
+.book-card .progress-text {
+  color: white;
+}
+
+
 </style>

@@ -61,39 +61,26 @@ const practiceLabel = computed(() => {
 /* ======================
    GENERAR EJERCICIO IA
 ====================== */
-const generateExercise = async (retries = 3) => {
-  loading.value = true
+const book = route.query.book || null;
 
-  for (let i = 0; i < retries; i++) {
-    try {
-      const res = await fetch('https://games-matem-ticas-ia-chat.vercel.app/api/generate-exercise', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          practice,
-          level: level.value,
-          exercise: exercise.value,
-          grade
-        })
-      })
+const generateExercise = async () => {
+  loading.value = true;
 
-      if (!res.ok) throw new Error(`Status ${res.status}`)
+  const res = await fetch('http://localhost:3000/api/generate-exercise', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      topic: practice, // undefined si es libro
+      difficulty: level.value,
+      book // si es libro
+    })
+  });
 
-      const data = await res.json()
-      current.value = data
-      break
-    } catch (e) {
-      console.error('Error generando ejercicio', e)
-      if (i < retries - 1) {
-        await new Promise(res => setTimeout(res, 1000)) // espera 1 seg antes de reintentar
-      } else {
-        alert('No se pudo generar el ejercicio. Intenta nuevamente más tarde.')
-      }
-    } finally {
-      loading.value = false
-    }
-  }
-}
+  const data = await res.json();
+  current.value = data;
+  loading.value = false;
+};
+
 
 /* ======================
    RESPUESTA DEL ALUMNO
