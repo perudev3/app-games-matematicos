@@ -47,11 +47,11 @@
       </div>
 
       <!-- MASCOT -->
-      <div class="hero-mascot">
+      <!-- <div class="hero-mascot">
         <div class="mascot-halo"></div>
         <img src="/logo-sin-fondo.png" class="mascot-img" />
         <div class="mascot-shadow"></div>
-      </div>
+      </div> -->
     </header>
 
     <!-- ══════════════════════════════
@@ -225,7 +225,7 @@ const loadUserData = async () => {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return
 
-  userName.value = user.user_metadata?.full_name || user.email || 'Alumno'
+  userName.value = user.user_metadata?.full_name || user.name || 'Alumno'
 
   const { data } = await supabase
     .from('practice_progress')

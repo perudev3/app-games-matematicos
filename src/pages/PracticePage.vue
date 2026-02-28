@@ -165,7 +165,9 @@ const selectAnswer = async (value) => {
 const completeExercise = async (points) => {
   const { data: { user } } = await supabase.auth.getUser()
   const { error } = await supabase.rpc('complete_exercise', {
-    uid: user.id, practice_name: practice, exercise_points: points
+    exercise_points: points,    // exacto como en la función
+    practice_name: practice,    // exacto como en la función
+    uid: user.id                // exacto como en la función
   })
   if (error) console.error('Error:', error.message)
 }

@@ -160,7 +160,7 @@ const sendMessage = async () => {
   scrollToBottom()
 
   try {
-    const res = await fetch('http://localhost:3000/api', {
+    const res = await fetch('http://localhost:3000/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: userText })
@@ -179,23 +179,63 @@ const sendMessage = async () => {
 }
 
 const createConversation = async () => {
+  const { data: userData, error: userError } = await supabase.auth.getUser()
+
+  if (userError) {
+    console.error('Error obteniendo usuario:', userError)
+    return
+  }
+
+  const userId = userData.user?.id
+
+  if (!userId) {
+    console.error('No hay usuario autenticado')
+    return
+  }
+
   const { data, error } = await supabase
     .from('ai_conversations')
-    .insert({ user_id: (await supabase.auth.getUser()).data.user.id })
+    .insert({ user_id: userId })
     .select()
     .single()
-  if (!error) conversationId.value = data.id
+
+  if (error) {
+    console.error('Error creando conversación:', error)
+    return
+  }
+
+  console.log('Conversación creada correctamente:', data)
+  conversationId.value = data.id
 }
 
 const saveMessage = async (sender, text) => {
-  await supabase.from('ai_messages').insert({
-    conversation_id: conversationId.value,
-    sender,
-    message: text
-  })
+  if (!conversationId.value) {
+    console.error('❌ conversationId es null o undefined')
+    return
+  }
+
+  console.log('💾 Guardando mensaje con conversationId:', conversationId.value)
+
+  const { data, error } = await supabase
+    .from('ai_messages')
+    .insert({
+      conversation_id: conversationId.value,
+      sender,
+      message: text
+    })
+    .select()
+
+  if (error) {
+    console.error('❌ Error guardando mensaje:', error)
+    return
+  }
+
+  console.log('✅ Mensaje guardado correctamente:', data)
 }
 
-onMounted(() => createConversation())
+onMounted(async () => {
+  await createConversation()
+})
 </script>
 
 <style scoped>
