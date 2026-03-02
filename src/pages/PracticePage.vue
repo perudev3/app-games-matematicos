@@ -125,7 +125,7 @@ const practiceIcon = computed(() => {
 const generateExercise = async () => {
   loading.value = true
   selectedAnswer.value = null
-  const res = await fetch('http://localhost:3000/api/generate-exercise', {
+  const res = await fetch('https://games-matem-ticas-ia-chat.vercel.app/api/generate-exercise', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ topic: practice, difficulty: level.value, book })
