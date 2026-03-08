@@ -1682,3 +1682,47 @@ body {
 .scard-val   { font-size: 22px; font-weight: 900; color: var(--white); line-height: 1; }
 .scard-label { font-size: 10px; font-weight: 700; color: var(--dim); letter-spacing: 0.5px; text-transform: uppercase; }
 
+
+.vr-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0f172a;
+}
+
+.vr-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg,#1f2937,#111827);
+  border-radius: 18px;
+  padding: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  color: white;
+}
+
+.vr-icon {
+  font-size: 28px;
+}
+
+.vr-text {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.vr-title {
+  font-weight: 600;
+  display: block;
+}
+
+.vr-sub {
+  font-size: 12px;
+  opacity: .7;
+}
+
+.vr-arrow {
+  font-size: 26px;
+}

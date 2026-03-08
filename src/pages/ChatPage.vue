@@ -10,7 +10,7 @@
     <div class="chat-header">
       <div class="header-avatar">
         <div class="avatar-ring">
-          <img src="/logo-sin-fondo.png" class="avatar-img" />
+          <img :src="logo" class="avatar-img" />
           <span class="avatar-status"></span>
         </div>
       </div>
@@ -64,7 +64,7 @@
           >
             <!-- Avatar IA -->
             <div v-if="msg.from === 'ai'" class="msg-avatar">
-              <img src="/logo-sin-fondo.png" />
+              <img :src="logo" />
             </div>
 
             <div class="msg-bubble" :class="msg.from === 'user' ? 'bubble-user' : 'bubble-ai'">
@@ -82,7 +82,7 @@
         <transition name="msg-pop">
           <div v-if="loading" class="msg-row msg-row-ai">
             <div class="msg-avatar">
-              <img src="/logo-sin-fondo.png" />
+              <img :src="logo" />
             </div>
             <div class="msg-bubble bubble-ai bubble-typing">
               <span></span><span></span><span></span>

@@ -75,7 +75,13 @@ module.exports = configure(function (/* ctx */) {
       // distDir
 
       // extendViteConf(viteConf) {},
-      // viteVuePluginOptions: {},
+      viteVuePluginOptions: {
+          template: {
+            compilerOptions: {
+              isCustomElement: (tag) => tag.startsWith('a-')
+            }
+          }
+      },
 
       // vitePlugins: [
       //   [ 'package-name', { ..options.. } ]

@@ -181,6 +181,25 @@
       </div>
     </section>
 
+    <!-- ══════════════════════════════
+        VR REWARDS
+    ══════════════════════════════ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-icon">🥽</span>
+        <h2 class="section-title">Realidad Virtual</h2>
+      </div>
+
+      <div class="vr-card" @click="openVR">
+        <div class="vr-icon">🏆</div>
+        <div class="vr-text">
+          <span class="vr-title">Ver mis recompensas</span>
+          <span class="vr-sub">Explora tus medallas en 3D</span>
+        </div>
+        <div class="vr-arrow">›</div>
+      </div>
+    </section>
+
   </q-page>
 </template>
 
@@ -247,6 +266,10 @@ const loadUserData = async () => {
     globalLevel.value   = Math.floor(xp / 100) + 1
     completedCount.value= done
   }
+}
+
+const openVR = () => {
+  router.push('/vr-rewards')
 }
 
 const startPractice = (key) => router.push({ path: '/practice', query: { practice: key, grade: 6 } })

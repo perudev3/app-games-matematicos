@@ -83,8 +83,8 @@
       <div v-if="showLevelUp" class="levelup-banner">
         <div class="levelup-content">
           <div class="levelup-burst">🌟</div>
-          <h2>¡Nivel {{ level - 1 }} Completado!</h2>
-          <p>Subiste al Nivel {{ level }} 🚀</p>
+          <h2>¡Nivel {{ level }} Completado!</h2>
+          <p>Subiste al Nivel {{ level + 1 }} 🚀</p>
         </div>
       </div>
     </transition>

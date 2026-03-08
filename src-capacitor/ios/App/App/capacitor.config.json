@@ -1,0 +1,8 @@
+{
+	"appId": "org.capacitor.quasar.app",
+	"appName": "quasar-starter",
+	"webDir": "www",
+	"packageClassList": [
+		"AppPlugin"
+	]
+}

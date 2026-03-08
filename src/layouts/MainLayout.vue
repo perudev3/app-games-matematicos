@@ -6,7 +6,7 @@
     </q-page-container>
 
     <!-- BOTTOM NAV -->
-    <q-footer class="game-footer">
+    <q-footer class="game-footer" v-if="$route.path !== '/vr-rewards'">
       <nav class="nav-bar">
 
         <!-- Glow line top -->

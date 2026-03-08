@@ -34,6 +34,10 @@ export default [
       {
         path: '/practice',
         component: () => import('pages/PracticePage.vue')
+      },
+      {
+        path: '/vr-rewards',
+        component: () => import('pages/VRRewards.vue')
       }
     ]
   }
