@@ -8,7 +8,7 @@ export const useAuthStore = defineStore('auth', {
   }),
 
   actions: {
-    async init () {
+    async init() {
       const { data } = await supabase.auth.getSession()
       this.user = data.session?.user || null
       this.loading = false
@@ -30,22 +30,24 @@ export const useAuthStore = defineStore('auth', {
       this.user = data.user
     },
 
-    async logout () {
+    async logout() {
       await supabase.auth.signOut()
       this.user = null
     },
 
     async register({ name, email, password }) {
       const { data, error } = await supabase.auth.signUp({
-        email: email.trim(), // 🔹 quitar espacios
+        email: email.trim(),
         password,
         options: {
-          data: { full_name: name },
-          emailRedirectTo: '',
+          data: {
+            full_name: name
+          }
         }
       })
 
       if (error) throw error
+
       this.user = data.user
     }
 

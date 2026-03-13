@@ -192,7 +192,7 @@ const loadProfile = async () => {
       .single()
 
     if (profile) {
-      userName.value = profile.name || 'Alumno'
+      userName.value = user.user_metadata?.full_name || user.name || 'Alumno'
       userEmail.value = profile.email || user.email
       form.value.name = profile.name || ''
       form.value.email = profile.email || ''

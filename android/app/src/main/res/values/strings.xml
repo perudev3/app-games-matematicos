@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Game Mate Matemáticos</string>
+    <string name="title_activity_main">Game Mate Matemáticos</string>
+    <string name="package_name">com.gamemate.matematicos</string>
+    <string name="custom_url_scheme">com.gamemate.matematicos</string>
+</resources>
